@@ -1,0 +1,27 @@
+body {
+  background: black;
+  color: #ddd;
+}
+main {
+  position: relative;
+}
+header {
+  //   background: #222;
+  height: 0vh;
+}
+
+section {
+  display: flex;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    max-width: 600px;
+    font-size: 3rem;
+  }
+}
+
+.section-0 {
+  min-height: 100vh;
+}

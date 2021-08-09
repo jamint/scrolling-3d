@@ -1,0 +1,18 @@
+#header-view {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s ease-out;
+
+  .logo {
+    font-size: 2rem;
+    font-family: "Monoton", cursive;
+    color: white;
+    padding: 1rem 0 0 1.5rem;
+  }
+
+  &.show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
