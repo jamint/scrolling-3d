@@ -225,8 +225,6 @@ const loadModel = () => {
         if (child.name === "Clouds") marsClouds = child
       }
     })
-    console.log(mars)
-    console.log(marsClouds)
   })
 }
 
