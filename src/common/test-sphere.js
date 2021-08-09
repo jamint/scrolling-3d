@@ -8,6 +8,7 @@ export const createOrbitPositionTestSphere = () => {
   const material = new THREE.MeshStandardMaterial({ color: 0xffff00 })
   sphereMesh = new THREE.Mesh(geometry, material)
 
+  sphereMesh.scale.set(0.2, 0.2, 0.2)
   getThreeScene().add(sphereMesh)
 
   start()

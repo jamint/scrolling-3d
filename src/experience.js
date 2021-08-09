@@ -19,7 +19,9 @@ const fov = 46,
   directionali1Intensity = 2,
   directional1Position = [5, 30, 3],
   ambientIntensity = 0.3,
-  earthSrc = "earth-03.glb"
+  earthSrc = "earth-03.glb",
+  moonSrc = "moon-01.glb",
+  marsSrc = "mars-01.glb"
 
 let canvas = null,
   scene = null,
@@ -27,10 +29,13 @@ let canvas = null,
   camera = null,
   controls = null,
   pmremGenerator = null,
-  sizes = null
+  sizes = null,
+  showOrbitTestSphere = false
 
 let earth = null,
-  earthClouds = null
+  earthClouds = null,
+  moon = null,
+  mars = null
 
 /**
  * Loaders
@@ -100,10 +105,10 @@ const init = () => {
 
   controls = new OrbitControls(camera, canvas)
   setOrbitControls(controls)
-  controls.enableDamping = true
+  // controls.enableDamping = true
   getOrbitControls().enabled = controlsEnabled
-  controls.minAzimuthAngle = -0.7
-  controls.maxAzimuthAngle = 0.7
+  // controls.minAzimuthAngle = -0.7
+  // controls.maxAzimuthAngle = 0.7
   // controls.minAzimuthAngle = -0.4
   // controls.maxAzimuthAngle = 0.5
   // controls.minPolarAngle = 0.9
@@ -156,11 +161,11 @@ const loadModel = () => {
   const particleTexture = textureLoader.load("/star-particle.png")
 
   const particlesGeometry = new THREE.BufferGeometry()
-  const count = 5000
+  const count = 10000
   const positions = new Float32Array(count * 3)
 
   for (let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 100
+    positions[i] = (Math.random() - 0.5) * 300
   }
   particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3))
   const particlesMaterial = new THREE.PointsMaterial()
@@ -181,30 +186,44 @@ const loadModel = () => {
 
   EventBus.publish(constants.START_EXPERIENCE)
 
-  // createOrbitPositionTestSphere()
+  if (showOrbitTestSphere) createOrbitPositionTestSphere()
 
-  // const gltfLoader = new GLTFLoader(loadingManager)
+  // Earth
   const gltfLoader = new GLTFLoader()
-  // gltfLoader.setDRACOLoader(dracoLoader)
-  // for (let i = 0; i < modelsData.length; i++) {
-  //   const data = modelsData[i],
-  //     scale = data.scale
   gltfLoader.load(earthSrc, (gltf) => {
     let model = gltf.scene
     scene.add(model)
-    console.log(model)
     model.traverse(function (child) {
       if (child.isMesh && child.geometry) {
-        // child.castShadow = true
-        // child.receiveShadow = true
         if (child.name === "Earth") earth = child
         if (child.name === "Clouds") earthClouds = child
       }
     })
-    console.log(earth)
-    console.log(earthClouds)
   })
-  // }
+  // Moon
+  gltfLoader.load(moonSrc, (gltf) => {
+    let model = gltf.scene
+    scene.add(model)
+    model.position.set(-30, 0, 0)
+    model.scale.set(0.2, 0.2, 0.2)
+    model.traverse(function (child) {
+      if (child.isMesh && child.geometry) {
+        if (child.name === "Moon") moon = child
+      }
+    })
+  })
+  // Mars
+  gltfLoader.load(marsSrc, (gltf) => {
+    let model = gltf.scene
+    scene.add(model)
+    model.position.set(0, 0, -200)
+    model.scale.set(1, 1, 1)
+    model.traverse(function (child) {
+      if (child.isMesh && child.geometry) {
+        if (child.name === "Mars") mars = child
+      }
+    })
+  })
 }
 
 /**
@@ -219,6 +238,12 @@ const tick = () => {
   if (earth && earthClouds) {
     earth.rotation.y -= 0.0007
     earthClouds.rotation.y -= 0.0003
+  }
+  if (moon) {
+    moon.rotation.y -= 0.0007
+  }
+  if (mars) {
+    mars.rotation.y -= 0.001
   }
   // postprocessing.composer.render(0.1)
 }

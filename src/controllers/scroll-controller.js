@@ -3,94 +3,131 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
-import { constants, getCamera } from "../model"
+import { constants, getCamera, getOrbitControls } from "../model"
 
 const handleStartExperience = () => {
-  const cam = getCamera()
+  const cam = getCamera(),
+    controls = getOrbitControls(),
+    ease = "power2.inOut"
+
   ScrollTrigger.defaults({
-    markers: true,
+    // markers: true,
   })
-  // gsap.set(cam.position, { x: 0, y: 0, z: 20 })
 
   /**
-   * Section 3
+   * Section 3 - Mars
    */
   gsap.fromTo(
     cam.position,
     {
-      x: -5,
-      y: 2,
-      z: 3,
+      x: -32,
+      y: 1,
+      z: 0.2,
     },
     {
       scrollTrigger: {
         trigger: ".section-3",
         start: "top center",
-        end: "+=400",
-        // toggleActions: "play none none none",
+        end: "+=800",
         scrub: 1,
-        // markers: true,
+        id: "mars",
       },
-      x: 50,
-      y: -35,
-      z: 70,
-      ease: "power1.inOut",
+      x: 0,
+      y: 0,
+      z: -208,
+      ease,
+    }
+  )
+  // Controls
+  gsap.fromTo(
+    controls.target,
+    { x: -30, y: 0, z: 0 },
+    {
+      x: 0,
+      y: 0,
+      z: -200,
+      scrollTrigger: {
+        trigger: ".section-3",
+        start: "top center",
+        end: "+=800",
+        scrub: 1,
+      },
+      ease,
     }
   )
 
   /**
-   * Section 2
+   * Section 2 - Moon
    */
+  // Camera
   gsap.fromTo(
     cam.position,
     {
       x: 0,
       y: 0,
-      z: 20,
+      z: 8,
     },
     {
+      x: -32,
+      y: 1,
+      z: 0.2,
       scrollTrigger: {
         trigger: ".section-2",
         start: "top center",
-        end: "+=400",
-        // toggleActions: "play none none none",
+        end: "+=800",
         scrub: 1,
-        // markers: true,
+        id: "moon",
       },
-      //   duration: 5,
-      x: -5,
-      y: 2,
-      z: 3,
-      ease: "power1.inOut",
+      ease,
+    }
+  )
+  // Controls
+  gsap.fromTo(
+    controls.target,
+    { x: 0, y: 0, z: 0 },
+    {
+      x: -30,
+      y: 0,
+      z: 0,
+      scrollTrigger: {
+        trigger: ".section-2",
+        start: "top center",
+        end: "+=800",
+        scrub: 1,
+        id: "moon",
+      },
+      ease,
     }
   )
 
   /**
-   * Section 1
+   * Section 1 - Earth Zoom
    */
 
+  // Camera
   gsap.fromTo(
     cam.position,
-    { x: 0, y: 0, z: 7 },
+    { x: 0, y: 0, z: 18 },
     {
       scrollTrigger: {
         trigger: ".section-1",
         start: "top center",
-        end: "+=400",
-        id: "beer",
-        // toggleActions: "play none none none",
+        end: "+=600",
+        id: "earth",
         scrub: 1,
       },
       //   duration: 5,
       x: 0,
       y: 0,
-      z: 20,
+      z: 8,
+      ease,
     }
   )
 
   /**
-   * Section 0
+   * Intro
    */
+  // Camera
   gsap.fromTo(
     cam.position,
     { x: 0, y: 0, z: 130 },
@@ -98,10 +135,14 @@ const handleStartExperience = () => {
       duration: 4,
       x: 0,
       y: 0,
-      z: 7,
-      ease: "power4.out",
+      z: 18,
+      ease: "power4.inOut",
     }
   )
+  // Controls
+  gsap.fromTo(controls.target, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 })
+
+  gsap.fromTo(".section-0", { opacity: 0 }, { duration: 2, opacity: 1, delay: 4 })
 }
 
 EventBus.on(constants.START_EXPERIENCE, handleStartExperience)
