@@ -15,6 +15,48 @@ const handleAssetsLoaded = () => {
   })
 
   /**
+   * Section 4 - Asteroid
+   */
+  gsap.fromTo(
+    cam.position,
+    {
+      x: 15,
+      y: 0,
+      z: -206,
+    },
+    {
+      scrollTrigger: {
+        trigger: ".section-4",
+        start: "top center",
+        end: "+=800",
+        scrub: 1,
+        id: "mars",
+      },
+      x: -1,
+      y: 0,
+      z: 103,
+      ease,
+    }
+  )
+  // Controls
+  gsap.fromTo(
+    controls.target,
+    { x: 10, y: 0, z: -200 },
+    {
+      x: -3,
+      y: 0,
+      z: 100,
+      scrollTrigger: {
+        trigger: ".section-4",
+        start: "top center",
+        end: "+=800",
+        scrub: 1,
+      },
+      ease,
+    }
+  )
+
+  /**
    * Section 3 - Mars
    */
   gsap.fromTo(
@@ -28,13 +70,13 @@ const handleAssetsLoaded = () => {
       scrollTrigger: {
         trigger: ".section-3",
         start: "top center",
-        end: "+=800",
+        end: "+=1200",
         scrub: 1,
         id: "mars",
       },
-      x: 0,
+      x: 15,
       y: 0,
-      z: -208,
+      z: -206,
       ease,
     }
   )
@@ -43,7 +85,7 @@ const handleAssetsLoaded = () => {
     controls.target,
     { x: -30, y: 0, z: 0 },
     {
-      x: 0,
+      x: 10,
       y: 0,
       z: -200,
       scrollTrigger: {

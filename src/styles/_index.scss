@@ -6,7 +6,6 @@ main {
   position: relative;
 }
 header {
-  //   background: #222;
   height: 0vh;
 }
 
@@ -18,8 +17,6 @@ section {
 
   .container {
     padding: 2rem;
-    // background: rgba(0, 0, 0, 0.1);
-    // border-radius: 15px;
     width: 85%;
     max-width: 800px;
     font-size: 3rem;
@@ -34,6 +31,12 @@ section {
       font-size: 2rem;
     }
   }
+}
+
+// Asteroid
+.section-4 {
+  // background: rgba(196, 33, 183, 0.3);
+  min-height: 200vh;
 }
 
 // Mars

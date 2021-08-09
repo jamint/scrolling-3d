@@ -11,6 +11,7 @@ import { constants, setThreeScene, setAssetsLoaded, setCamera, setOrbitControls,
 import { createOrbitPositionTestSphere } from "./common/test-sphere"
 
 const fov = 50,
+  showOrbitTestSphere = false,
   controlsEnabled = false,
   envMapExposure = 0.5,
   directionali1Intensity = 0.5,
@@ -18,7 +19,9 @@ const fov = 50,
   directional1Position = [5, 30, 3],
   earthSrc = "earth-03.glb",
   moonSrc = "moon-01.glb",
-  marsSrc = "mars-01.glb"
+  marsSrc = "mars-01.glb",
+  asteroidSrc = "asteroid-01.glb",
+  asteroid2Src = "asteroid-02.glb"
 
 let canvas = null,
   scene = null,
@@ -26,14 +29,15 @@ let canvas = null,
   camera = null,
   controls = null,
   pmremGenerator = null,
-  sizes = null,
-  showOrbitTestSphere = false
+  sizes = null
 
 let earth = null,
   earthClouds = null,
   moon = null,
   mars = null,
-  marsClouds = null
+  marsClouds = null,
+  asteroid = null,
+  asteroid2 = null
 
 /**
  * Loaders
@@ -50,9 +54,7 @@ const loadingManager = new THREE.LoadingManager(
     sceneReady = true
   },
   (itemUrl, itemsLoaded, itemsTotal) => {
-    const progressRatio = itemsLoaded / itemsTotal
-    console.log(itemsLoaded)
-    console.log(itemsTotal)
+    // const progressRatio = itemsLoaded / itemsTotal
   }
 )
 
@@ -176,7 +178,7 @@ const loadModel = () => {
   gltfLoader.load(marsSrc, (gltf) => {
     let model = gltf.scene
     scene.add(model)
-    model.position.set(0, 0, -200)
+    model.position.set(10, 0, -200)
     model.scale.set(1, 1, 1)
     model.traverse(function (child) {
       if (child.isMesh && child.geometry) {
@@ -186,18 +188,29 @@ const loadModel = () => {
     })
   })
   // Asteroid
-  // gltfLoader.load(asteroidSrc, (gltf) => {
-  //   let model = gltf.scene
-  //   scene.add(model)
-  //   model.position.set(-5, 0, 0)
-  //   model.scale.set(1, 1, 1)
-  //   model.traverse(function (child) {
-  //     if (child.isMesh && child.geometry) {
-  //       // if (child.name === "Mars") mars = child
-  //       // if (child.name === "Clouds") marsClouds = child
-  //     }
-  //   })
-  // })
+  gltfLoader.load(asteroidSrc, (gltf) => {
+    let model = gltf.scene
+    scene.add(model)
+    model.position.set(-3, 0, 100)
+    model.scale.set(0.1, 0.1, 0.1)
+    model.traverse(function (child) {
+      if (child.isMesh && child.geometry) {
+        if (child.name === "Asteroid") asteroid = child
+      }
+    })
+  })
+  // Asteroid2
+  gltfLoader.load(asteroid2Src, (gltf) => {
+    let model = gltf.scene
+    scene.add(model)
+    model.position.set(-5, -1, 99)
+    model.scale.set(0.1, 0.1, 0.1)
+    model.traverse(function (child) {
+      if (child.isMesh && child.geometry) {
+        if (child.name === "Asteroid") asteroid2 = child
+      }
+    })
+  })
 }
 
 /**
@@ -219,6 +232,12 @@ const tick = () => {
   if (mars && marsClouds) {
     mars.rotation.y -= 0.0007
     marsClouds.rotation.y -= 0.0006
+  }
+  if (asteroid && asteroid2) {
+    asteroid.rotation.x -= 0.006
+    asteroid.rotation.y -= 0.005
+    asteroid2.rotation.y += 0.002
+    asteroid2.rotation.z += 0.001
   }
 }
 
