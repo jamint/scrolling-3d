@@ -7,18 +7,18 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader"
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js"
 import { constants, setThreeScene, setAssetsLoaded, setCamera, setOrbitControls, getModelsArr, getOrbitControls } from "./model"
-// import { modelsData } from "./data/model-objects-data"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger.js"
 
 import { createOrbitPositionTestSphere } from "./common/test-sphere"
 
-const fov = 46,
+const fov = 50,
   controlsEnabled = false,
-  envMapExposure = 0.7,
-  directionali1Intensity = 2,
+  // envMapExposure = 0.7,
+  // directionali1Intensity = 2,
+  // ambientIntensity = 0.3,
+  envMapExposure = 0.5,
+  directionali1Intensity = 0.5,
+  ambientIntensity = 0,
   directional1Position = [5, 30, 3],
-  ambientIntensity = 0.3,
   earthSrc = "earth-03.glb",
   moonSrc = "moon-01.glb",
   marsSrc = "mars-01.glb"
@@ -106,15 +106,7 @@ const init = () => {
 
   controls = new OrbitControls(camera, canvas)
   setOrbitControls(controls)
-  // controls.enableDamping = true
   getOrbitControls().enabled = controlsEnabled
-  // controls.minAzimuthAngle = -0.7
-  // controls.maxAzimuthAngle = 0.7
-  // controls.minAzimuthAngle = -0.4
-  // controls.maxAzimuthAngle = 0.5
-  // controls.minPolarAngle = 0.9
-  // controls.maxPolarAngle = 1.8
-  // controls.enableZoom = false
 
   pmremGenerator = new THREE.PMREMGenerator(renderer)
   pmremGenerator.compileEquirectangularShader()
@@ -134,11 +126,7 @@ const loadLights = () => {
 
   const directional1 = new THREE.DirectionalLight("#ffffff", directionali1Intensity)
   directional1.position.set(directional1Position[0], directional1Position[1], directional1Position[2])
-  // directional1.castShadow = true
-  // directional1.shadow.bias = -0.0004
-  // scene.add(directional1)
-  // const directional1Helper = new THREE.DirectionalLightHelper(directional1, 5, "red")
-  // scene.add(directional1Helper)
+  scene.add(directional1)
 
   let ambient = new THREE.AmbientLight(0xffffff, ambientIntensity)
   scene.add(ambient)
