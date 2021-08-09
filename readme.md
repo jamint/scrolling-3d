@@ -1,11 +1,12 @@
-# RC 3D Flask Example
+# Scrolling 3D Example
 
 ## Setup
+
 Download [Node.js](https://nodejs.org/en/download/).
 Working node version: 14.16.1
 Run the project with the followeing commands:
 
-``` bash
+```bash
 # Install dependencies (only the first time)
 yarn
 

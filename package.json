@@ -1,5 +1,5 @@
 {
-  "repository": "rc-3d-flask-example",
+  "repository": "scrolling-3d",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js --env waka",
     "dev": "webpack serve --config ./bundler/webpack.dev.js"
