@@ -35,7 +35,8 @@ let canvas = null,
 let earth = null,
   earthClouds = null,
   moon = null,
-  mars = null
+  mars = null,
+  marsClouds = null
 
 /**
  * Loaders
@@ -221,8 +222,11 @@ const loadModel = () => {
     model.traverse(function (child) {
       if (child.isMesh && child.geometry) {
         if (child.name === "Mars") mars = child
+        if (child.name === "Clouds") marsClouds = child
       }
     })
+    console.log(mars)
+    console.log(marsClouds)
   })
 }
 
@@ -242,41 +246,11 @@ const tick = () => {
   if (moon) {
     moon.rotation.y -= 0.0007
   }
-  if (mars) {
-    mars.rotation.y -= 0.001
+  if (mars && marsClouds) {
+    mars.rotation.y -= 0.0007
+    marsClouds.rotation.y -= 0.0006
   }
-  // postprocessing.composer.render(0.1)
 }
-
-// const initPostProcessing = () => {
-//   const renderPass = new RenderPass(scene, camera)
-//   // renderPass.clear = false
-//   renderer.autoClear = false
-//   var parameters = {
-//     minFilter: THREE.LinearFilter,
-//     magFilter: THREE.LinearFilter,
-//     format: THREE.RGBAFormat,
-//     stencilBuffer: false,
-//   }
-
-//   var renderTarget = new THREE.WebGLRenderTarget(sizes.w, sizes.h, parameters)
-
-//   const bokehPass = new BokehPass(scene, camera, {
-//     focus: 50.0,
-//     aperture: 0.035,
-//     maxblur: 0.01,
-//     width: sizes.w,
-//     height: sizes.h,
-//   })
-
-//   const composer = new EffectComposer(renderer, renderTarget)
-
-//   composer.addPass(renderPass)
-//   composer.addPass(bokehPass)
-
-//   postprocessing.composer = composer
-//   postprocessing.bokeh = bokehPass
-// }
 
 /**
  * Initialization
@@ -285,7 +259,6 @@ const tick = () => {
 setTimeout(() => {
   init()
   loadLights()
-  // initPostProcessing()
   tick()
   window.addEventListener("resize", handleResize)
   handleResize()
