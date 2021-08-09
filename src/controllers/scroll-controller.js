@@ -136,13 +136,14 @@ const handleStartExperience = () => {
       x: 0,
       y: 0,
       z: 18,
+      delay: 1,
       ease: "power4.inOut",
     }
   )
   // Controls
   gsap.fromTo(controls.target, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 })
 
-  gsap.fromTo(".section-0", { opacity: 0 }, { duration: 2, opacity: 1, delay: 4 })
+  gsap.fromTo(".section-0", { opacity: 0 }, { duration: 2, opacity: 1, delay: 5 })
 }
 
 EventBus.on(constants.START_EXPERIENCE, handleStartExperience)
