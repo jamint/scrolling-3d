@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 import { constants, getCamera, getOrbitControls } from "../model"
 
-const handleStartExperience = () => {
+const handleAssetsLoaded = () => {
   const cam = getCamera(),
     controls = getOrbitControls(),
     ease = "power2.inOut"
@@ -143,7 +143,7 @@ const handleStartExperience = () => {
   // Controls
   gsap.fromTo(controls.target, { x: 0, y: 0, z: 0 }, { x: 0, y: 0, z: 0 })
 
-  gsap.fromTo(".section-0", { opacity: 0 }, { duration: 2, opacity: 1, delay: 5 })
+  gsap.fromTo(".section-0", { opacity: 0 }, { duration: 3, opacity: 1, delay: 4 })
 }
 
-EventBus.on(constants.START_EXPERIENCE, handleStartExperience)
+EventBus.on(constants.ASSETS_LOADED, handleAssetsLoaded)

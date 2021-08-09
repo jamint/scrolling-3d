@@ -45,6 +45,11 @@ body {
     height: 100%;
   }
 }
+main {
+  position: relative;
+  left: 0;
+  top: 0;
+}
 
 #stats-container {
   position: absolute;
@@ -57,3 +62,4 @@ body {
 
 @import "_index.scss";
 @import "_intro-description-view.scss";
+@import "_loading-view.scss";

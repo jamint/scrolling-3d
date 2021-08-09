@@ -4,10 +4,7 @@ import { constants, setIsTesting } from "./model"
 import "./styles/style.scss"
 import "./experience"
 import "./controllers/scroll-controller"
-// import "./animation/animation"
-// import "./views/scene1-view"
-// import "./views/buttons-view"
-// import "./controllers/mouse-camera-move-controller"
+import "./views/loading-view"
 
 /**
  * For testing

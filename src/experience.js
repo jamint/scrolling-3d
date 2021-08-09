@@ -12,9 +12,6 @@ import { createOrbitPositionTestSphere } from "./common/test-sphere"
 
 const fov = 50,
   controlsEnabled = false,
-  // envMapExposure = 0.7,
-  // directionali1Intensity = 2,
-  // ambientIntensity = 0.3,
   envMapExposure = 0.5,
   directionali1Intensity = 0.5,
   ambientIntensity = 0,
@@ -42,7 +39,6 @@ let earth = null,
  * Loaders
  */
 const stats = new Stats()
-// loadingBarElement = document.querySelector(".loading-bar")
 
 const statsEl = document.querySelector("#stats-container")
 statsEl.appendChild(stats.dom)
@@ -51,32 +47,14 @@ let sceneReady = false
 const loadingManager = new THREE.LoadingManager(
   () => {
     setAssetsLoaded()
-    // EventBus.publish(constants.START_EXPERIENCE)
     sceneReady = true
-
-    window.setTimeout(() => {
-      // loadingBarElement.classList.add("ended")
-      // loadingBarElement.style.transform = ""
-    }, 1000)
   },
-  // Progress
   (itemUrl, itemsLoaded, itemsTotal) => {
-    // const progressRatio = itemsLoaded / itemsTotal
-    // loadingBarElement.style.transform = `scaleX(${progressRatio})`
+    const progressRatio = itemsLoaded / itemsTotal
+    console.log(itemsLoaded)
+    console.log(itemsTotal)
   }
 )
-
-const handleResize = () => {
-  const w = document.querySelector(".canvas-container").getBoundingClientRect().width
-  const h = document.querySelector(".canvas-container").getBoundingClientRect().height
-  sizes.width = w
-  sizes.height = h
-  camera.aspect = w / h
-  camera.updateProjectionMatrix()
-  renderer.setSize(w, h)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-  // postprocessing.composer.setSize(w, h)
-}
 
 const init = () => {
   sizes = {
@@ -99,8 +77,6 @@ const init = () => {
   renderer.toneMappingExposure = envMapExposure
 
   camera = new THREE.PerspectiveCamera(fov, sizes.width / sizes.height, 0.1, 3000)
-  // camera.position.set(0, 0, 20)
-  // console.log(camera.position)
   scene.add(camera)
   setCamera(camera)
 
@@ -140,11 +116,6 @@ const dracoLoader = new DRACOLoader()
 dracoLoader.setDecoderPath("draco/")
 
 const loadModel = () => {
-  // const geometry = new THREE.SphereGeometry(1, 32, 16)
-  // const material = new THREE.MeshStandardMaterial({ color: 0xffff00 })
-  // const sphere = new THREE.Mesh(geometry, material)
-  // scene.add(sphere)
-
   // Particles
   const textureLoader = new THREE.TextureLoader()
   const particleTexture = textureLoader.load("/star-particle.png")
@@ -173,12 +144,12 @@ const loadModel = () => {
   const particles = new THREE.Points(particlesGeometry, particlesMaterial)
   scene.add(particles)
 
-  EventBus.publish(constants.START_EXPERIENCE)
+  // EventBus.publish(constants.START_EXPERIENCE)
 
   if (showOrbitTestSphere) createOrbitPositionTestSphere()
 
   // Earth
-  const gltfLoader = new GLTFLoader()
+  const gltfLoader = new GLTFLoader(loadingManager)
   gltfLoader.load(earthSrc, (gltf) => {
     let model = gltf.scene
     scene.add(model)
@@ -214,6 +185,19 @@ const loadModel = () => {
       }
     })
   })
+  // Asteroid
+  // gltfLoader.load(asteroidSrc, (gltf) => {
+  //   let model = gltf.scene
+  //   scene.add(model)
+  //   model.position.set(-5, 0, 0)
+  //   model.scale.set(1, 1, 1)
+  //   model.traverse(function (child) {
+  //     if (child.isMesh && child.geometry) {
+  //       // if (child.name === "Mars") mars = child
+  //       // if (child.name === "Clouds") marsClouds = child
+  //     }
+  //   })
+  // })
 }
 
 /**
@@ -236,6 +220,17 @@ const tick = () => {
     mars.rotation.y -= 0.0007
     marsClouds.rotation.y -= 0.0006
   }
+}
+
+const handleResize = () => {
+  const w = document.querySelector(".canvas-container").getBoundingClientRect().width
+  const h = document.querySelector(".canvas-container").getBoundingClientRect().height
+  sizes.width = w
+  sizes.height = h
+  camera.aspect = w / h
+  camera.updateProjectionMatrix()
+  renderer.setSize(w, h)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 }
 
 /**
