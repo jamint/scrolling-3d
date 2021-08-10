@@ -35,28 +35,32 @@ section {
 
 // Asteroid
 .section-4 {
-  // background: rgba(196, 33, 183, 0.3);
-  min-height: 200vh;
+  // background: rgba(29, 131, 29, 0.4);
+  min-height: 130vh;
 }
 
 // Mars
 .section-3 {
-  // background: rgba(196, 33, 183, 0.3);
-  min-height: 200vh;
+  // background: rgba(136, 95, 133, 0.4);
+  min-height: 130vh;
 }
 
 // Moon
 .section-2 {
-  // background: rgba(159, 68, 68, 0.3);
-  min-height: 200vh;
+  // background: rgba(159, 68, 68, 0.4);
+  min-height: 130vh;
 }
 
 // Earth zoom
 .section-1 {
-  // background: rgba(255, 162, 0, 0.3);
-  min-height: 120vh;
+  // background: rgba(255, 162, 0, 0.4);
+  min-height: 130vh;
 }
+
 .section-0 {
   min-height: 100vh;
-  opacity: 0;
+  align-items: center;
+  .container {
+    opacity: 0;
+  }
 }

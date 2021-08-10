@@ -45,7 +45,7 @@ let earth = null,
 const stats = new Stats()
 
 const statsEl = document.querySelector("#stats-container")
-statsEl.appendChild(stats.dom)
+// statsEl.appendChild(stats.dom)
 
 let sceneReady = false
 const loadingManager = new THREE.LoadingManager(

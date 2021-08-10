@@ -5,17 +5,18 @@ import "./styles/style.scss"
 import "./experience"
 import "./controllers/scroll-controller"
 import "./views/loading-view"
+import "./animation/animation"
 
 /**
  * For testing
  */
 
-const startTesting = (goto) => {
-  setIsTesting(true)
-  setTimeout(() => {
-    // EventBus.publish("scene1")
-    // EventBus.publish(constants.START_EXPERIENCE)
-  }, 1000)
-}
+// const startTesting = (goto) => {
+//   setIsTesting(true)
+//   setTimeout(() => {
+//     // EventBus.publish("scene1")
+//     // EventBus.publish(constants.START_EXPERIENCE)
+//   }, 1000)
+// }
 
 // startTesting()
