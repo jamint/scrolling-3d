@@ -11,6 +11,7 @@ header {
 
 section {
   display: flex;
+  flex-direction: column;
   min-height: 80vh;
   justify-content: center;
   align-items: center;
@@ -87,12 +88,16 @@ section {
 .section-0 {
   min-height: 100vh;
   align-items: center;
+
   .container {
     opacity: 0;
-    // h2 {
-    //   @media only screen and (max-width: 768px) {
-    //     font-size: 3rem;
-    //   }
-    // }
   }
+}
+
+.arrow-down {
+  position: fixed;
+  bottom: 3rem;
+  width: 50px;
+  transform: translateX(-50%);
+  left: 50%;
 }
