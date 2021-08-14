@@ -51,6 +51,7 @@ let sceneReady = false
 const loadingManager = new THREE.LoadingManager(
   () => {
     setAssetsLoaded()
+    handleResize()
     sceneReady = true
   },
   (itemUrl, itemsLoaded, itemsTotal) => {

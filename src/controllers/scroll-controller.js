@@ -23,9 +23,7 @@ const cArr = [
 
 const handleAssetsLoaded = () => {
   const camera = getCamera(),
-    controls = getOrbitControls(),
-    // ease = "sine.inOut"
-    ease = "none"
+    controls = getOrbitControls()
 
   ScrollTrigger.defaults({
     markers: false,
